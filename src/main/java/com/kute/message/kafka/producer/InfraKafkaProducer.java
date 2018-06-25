@@ -16,9 +16,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 
  * @author bl
- *
  */
 public class InfraKafkaProducer {
 
@@ -54,14 +52,14 @@ public class InfraKafkaProducer {
 
     /**
      * 发送一条message
-     * 
+     *
      * @param topic
      * @param partitionKey
      * @param msgData
      * @return
      */
     public boolean sendMessage(String topic, Integer partitionKey, String key, String msgData) {
-        if(Strings.isNullOrEmpty(msgData)) {
+        if (Strings.isNullOrEmpty(msgData)) {
             return true;
         }
         List<String> msgList = Lists.newArrayList(msgData);
@@ -70,27 +68,27 @@ public class InfraKafkaProducer {
 
     /**
      * 发送多条message
-     * 
+     *
      * @param topic
      * @param partitionKey
      * @param msgDataList
      * @return
      */
     public boolean sendMessage(String topic, Integer partitionKey, String key, List<String> msgDataList) {
-        if(CollectionUtils.isEmpty(msgDataList)) {
+        if (CollectionUtils.isEmpty(msgDataList)) {
             return true;
         }
         int size = msgDataList.size();
         long sendTime = System.currentTimeMillis();
         int retry = KafkaConstants.MAX_RETRY_TIMES;
-        for (int i=0; i<size; i++) {
+        for (int i = 0; i < size; i++) {
             String msgData = msgDataList.get(i);
             while (retry-- >= 0) {
-                ProducerRecord<String , String > record;
-                if(null == key) {
+                ProducerRecord<String, String> record;
+                if (null == key) {
                     record = new ProducerRecord<String, String>(topic, msgData);
                 } else {
-                    if(null == partitionKey) {
+                    if (null == partitionKey) {
                         record = new ProducerRecord<String, String>(topic, key, msgData);
                     } else {
                         record = new ProducerRecord<String, String>(topic, partitionKey, key, msgData);
@@ -98,7 +96,7 @@ public class InfraKafkaProducer {
                 }
                 Future future = producer.send(record, new MsgCallBack(sendTime, i, msgData));
                 try {
-                    if(future.get(1, TimeUnit.SECONDS) != null) {
+                    if (future.get(1, TimeUnit.SECONDS) != null) {
                         break;
                     }
                 } catch (Exception e) {
@@ -109,9 +107,9 @@ public class InfraKafkaProducer {
         }
         return true;
     }
-    
+
     class MsgCallBack implements Callback {
-        
+
         private final long sendTime;
         private final int msgId;
         private final String msg;
@@ -124,7 +122,7 @@ public class InfraKafkaProducer {
 
         @Override
         public void onCompletion(RecordMetadata metadata, Exception e) {
-            if(null == metadata) {
+            if (null == metadata) {
                 logger.error("copyToNetease from kafka send msg failed:sendTime={}, msgId={}, msg={}, error={}", new Object[]{
                         sendTime, msgId, msg, e
                 });
@@ -134,6 +132,6 @@ public class InfraKafkaProducer {
                 });
             }
         }
-        
+
     }
 }

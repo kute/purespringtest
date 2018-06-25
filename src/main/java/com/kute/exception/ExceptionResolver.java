@@ -19,8 +19,9 @@ import java.io.IOException;
  * created by kute on 2018/04/07 12:49
  */
 public class ExceptionResolver implements HandlerExceptionResolver, Ordered {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(ExceptionResolver.class);
+
     public int getOrder() {
         return Integer.MIN_VALUE;
     }
@@ -33,7 +34,7 @@ public class ExceptionResolver implements HandlerExceptionResolver, Ordered {
 
     private ModelAndView resolve(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, Exception ex) {
         String callBack = request.getParameter("callback");
-        if(Strings.isNullOrEmpty(callBack)) {
+        if (Strings.isNullOrEmpty(callBack)) {
             callBack = request.getParameter("jsoncallback");
         }
 

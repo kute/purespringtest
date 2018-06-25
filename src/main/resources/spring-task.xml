@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <task:executor id="defaultExecutor" pool-size="256" queue-capacity="10000" rejection-policy="DISCARD" />
+
+    <task:scheduler id="defaultScheduler" pool-size="50" />
+    <!-- 开启支持 @Scheduled -->
+    <task:annotation-driven executor="defaultExecutor" scheduler="defaultScheduler" />
+
+    <task:scheduled-tasks scheduler="defaultScheduler">
+        <task:scheduled ref="defaultTask" method="run" cron="0 * * * * ?"/>
+    </task:scheduled-tasks>
+
+    <bean id="defaultTask" class="com.kute.tasks.DefaultTask" />
+
+
+</beans>

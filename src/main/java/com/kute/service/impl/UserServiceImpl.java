@@ -1,5 +1,7 @@
 package com.kute.service.impl;
 
+import com.kute.domain.User;
+import com.kute.service.AbstractService;
 import com.kute.service.IUserSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -14,14 +16,18 @@ import java.util.concurrent.TimeUnit;
  * created by kute on 2018/04/17 22:33
  */
 @Service("userService")
-public class UserServiceImpl implements IUserSerivce {
+public class UserServiceImpl extends AbstractService implements IUserSerivce {
 
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @Resource(name = "redisTemplate")
-    private HashOperations<String, String, Long> hashOperations;
+//    @Resource(name = "redisTemplate")
+//    private HashOperations<String, String, Long> hashOperations;
 
+    @Override
+    public User findUser(String name) {
+        return new User(name);
+    }
 
     public void test() {
 

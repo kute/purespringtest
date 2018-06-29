@@ -5,6 +5,4 @@ package com.kute.util;
  */
 public class StringUtil {
 
-
-
 }

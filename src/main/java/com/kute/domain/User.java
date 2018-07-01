@@ -1,5 +1,7 @@
 package com.kute.domain;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Strings;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.sql.Timestamp;
@@ -23,5 +25,47 @@ public class User extends DomainBean {
         this.userId = RandomUtils.nextInt(1, 1000);
         this.name = name;
         this.date = new Timestamp(System.currentTimeMillis());
+    }
+
+    public static void toUpperCaseName(User user) {
+        if(!Strings.isNullOrEmpty(user.getName())) {
+            user.setName(user.getName().toUpperCase());
+        }
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public User setUserId(Integer userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public User setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public User setDate(Timestamp date) {
+        this.date = date;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("userId", userId)
+                .add("name", name)
+                .add("date", date)
+                .toString();
     }
 }

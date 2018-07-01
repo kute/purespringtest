@@ -15,7 +15,6 @@ import static org.powermock.api.mockito.PowerMockito.when;
 /**
  * created by kute on 2018/06/28 22:41
  */
-//@PrepareForTest(UserServiceImpl.class)
 public class UserServiceImplTest extends BasePowerMockTest {
 
     @InjectMocks

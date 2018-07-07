@@ -40,6 +40,9 @@
             <properties>
                 <common.jar.version>0.0.1-SNAPSHOT</common.jar.version>
             </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
 
     </profiles>
@@ -352,6 +355,7 @@
                     <fork>true</fork>
                     <meminitial>512m</meminitial>
                     <maxmem>1048m</maxmem>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
             <plugin>

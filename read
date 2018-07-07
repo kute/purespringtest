@@ -1,3 +1,12 @@
 1. powermock
 
 https://github.com/powermock/powermock
+
+2. install mvnw
+
+https://github.com/takari/maven-wrapper
+
+mvn -N io.takari:maven:wrapper
+mvn -N io.takari:maven:wrapper -Dmaven=3.3.9
+
+mvnw clean package

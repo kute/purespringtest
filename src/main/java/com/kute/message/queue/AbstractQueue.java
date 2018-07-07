@@ -12,7 +12,7 @@ public abstract class AbstractQueue {
 
     protected <T> T parseMessage(Message message) throws Exception {
         Jackson2JsonMessageConverter jmc = new Jackson2JsonMessageConverter();
-        return JSON.parseObject((String) jmc.fromMessage(message), new TypeReference<T>() {
+        return JSON.parseObject(JSON.toJSONString(jmc.fromMessage(message)), new TypeReference<T>() {
         });
     }
 

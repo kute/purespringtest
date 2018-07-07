@@ -21,6 +21,6 @@ public class MessageProducerImpl implements IMessageProducer {
     public void sendDefaultMessage(String message) {
         Map<String, String> paramMap = new HashMap<>(1);
         paramMap.put("message", message);
-        rabbitTemplate.convertAndSend("default_queue", paramMap);
+        rabbitTemplate.convertAndSend("default_queue_key", paramMap);
     }
 }

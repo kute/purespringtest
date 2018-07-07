@@ -21,6 +21,7 @@ public class DefaultQueueListener extends AbstractQueue implements MessageListen
 
         try {
             Map<String, Object> messageMap = parseMessage(message);
+            LOGGER.info("Receive message from defaultQueue:{}", messageMap);
             if (MapUtils.isNotEmpty(messageMap)) {
                 // process message
             }

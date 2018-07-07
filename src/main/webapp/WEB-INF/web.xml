@@ -10,6 +10,7 @@
         <param-value>
             classpath:applicationContext-core.xml
             classpath:spring-redis.xml
+            classpath:spring-mq.xml
             classpath:spring-task.xml
         </param-value>
     </context-param>

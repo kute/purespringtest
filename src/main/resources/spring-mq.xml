@@ -28,7 +28,7 @@
     <!-- queue binding -->
     <rabbit:direct-exchange name="defaultDirectExchange" durable="true" auto-delete="false">
         <rabbit:bindings>
-            <rabbit:binding key="default_queue_key" queue="default_queue"></rabbit:binding>
+            <rabbit:binding key="default_queue_key" queue="default_queue" />
         </rabbit:bindings>
     </rabbit:direct-exchange>
 

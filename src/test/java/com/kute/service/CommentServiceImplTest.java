@@ -35,8 +35,6 @@ public class CommentServiceImplTest extends BasePowerMockTest {
 
         List<String > userCommentList = commentService.getUserCommentList(userId);
 
-        LOGGER.info("{}", userCommentList);
-
         Assert.assertNotNull(userCommentList);
 
     }

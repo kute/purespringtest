@@ -15,5 +15,4 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations = {"classpath:applicationContext-core.xml"})
 public abstract class BasePowerMockTest {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(BasePowerMockTest.class);
 }

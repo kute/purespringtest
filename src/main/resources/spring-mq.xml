@@ -19,11 +19,10 @@
                      message-converter="jsonMessageConverter"/>
 
     <!-- queue declare -->
-    <!-- durable: 是否持久化到磁盘
-    auto-delete:
-     -->
     <rabbit:queue id="default_queue" durable="true" auto-delete="false" auto-declare="true" exclusive="false"
                   name="default_queue"/>
+    <rabbit:queue id="heartbit" durable="true" auto-delete="false" auto-declare="true" exclusive="false"
+                  name="heartbit"/>
 
     <!-- queue binding -->
     <rabbit:direct-exchange name="defaultDirectExchange" durable="true" auto-delete="false">
@@ -32,12 +31,20 @@
         </rabbit:bindings>
     </rabbit:direct-exchange>
 
+    <rabbit:fanout-exchange name="defaultFanoutExchange" durable="true" auto-delete="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="heartbit" />
+        </rabbit:bindings>
+    </rabbit:fanout-exchange>
+
     <!-- listener container -->
     <rabbit:listener-container connection-factory="connectionFactory" concurrency="10" prefetch="20">
         <rabbit:listener ref="defaultQueueListener" queue-names="default_queue" />
+        <rabbit:listener ref="defaultChannelAwareMessageListener" queue-names="heartbit" />
     </rabbit:listener-container>
 
     <!-- listener -->
     <bean id="defaultQueueListener" class="com.kute.message.queue.consumer.DefaultQueueListener" />
+    <bean id="defaultChannelAwareMessageListener" class="com.kute.message.queue.consumer.DefaultChannelAwareMessageListener" />
 
 </beans>

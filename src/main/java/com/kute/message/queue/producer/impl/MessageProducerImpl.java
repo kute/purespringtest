@@ -1,6 +1,7 @@
 package com.kute.message.queue.producer.impl;
 
 import com.kute.message.queue.producer.IMessageProducer;
+import com.kute.util.MessageQueueKeyEnum;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,16 @@ public class MessageProducerImpl implements IMessageProducer {
     public void sendDefaultMessage(String message) {
         Map<String, String> paramMap = new HashMap<>(1);
         paramMap.put("message", message);
-        rabbitTemplate.convertAndSend("default_queue_key", paramMap);
+        convertAndSend(MessageQueueKeyEnum.DEFAULT_MESSAGE.getKey(), paramMap);
     }
+
+    /**
+     * 同步发送
+     * @param key
+     * @param message
+     */
+    private void convertAndSend(String key, Object message) {
+        rabbitTemplate.convertAndSend(key, message);
+    }
+
 }

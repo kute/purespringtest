@@ -1,6 +1,7 @@
 package com.kute.domain;
 
 import com.kute.BasePowerMockTest;
+import org.junit.Assert;
 import org.junit.Test;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 
@@ -19,11 +20,14 @@ public class UserTest extends BasePowerMockTest {
 
         mockStatic(User.class);
 
-        doNothing().when(User.class, "toUpperCaseName", user);
+        when(User.toUpperCaseName(user)).thenReturn(user.getName().toUpperCase());
 
+        String name = User.toUpperCaseName(user);
+
+        Assert.assertEquals(user.getName().toUpperCase(), name);
+
+        verifyStatic(User.class);
         User.toUpperCaseName(user);
-
-        assertEquals(name.toUpperCase(), user.getName());
 
     }
 

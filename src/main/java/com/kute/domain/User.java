@@ -27,10 +27,11 @@ public class User extends DomainBean {
         this.date = new Timestamp(System.currentTimeMillis());
     }
 
-    public static void toUpperCaseName(User user) {
+    public static String toUpperCaseName(User user) {
         if(!Strings.isNullOrEmpty(user.getName())) {
             user.setName(user.getName().toUpperCase());
         }
+        return user.getName();
     }
 
     public Integer getUserId() {

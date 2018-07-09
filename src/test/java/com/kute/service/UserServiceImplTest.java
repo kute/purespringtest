@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -17,14 +18,11 @@ import static org.powermock.api.mockito.PowerMockito.when;
  */
 public class UserServiceImplTest extends BasePowerMockTest {
 
-    @InjectMocks
-    private IUserSerivce userSerivce;
-
-    @Mock
-    private RedisTemplate redisTemplate;
-
     @Test
     public void testFindUser() {
+
+        IUserSerivce userSerivce = PowerMockito.mock(UserServiceImpl.class);
+
         String name = "kute";
 
         when(userSerivce.findUser(name)).thenReturn(new User(name));

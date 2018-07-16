@@ -5,3 +5,6 @@ target/
 .project
 *.iml
 .classpath
+build/
+build.gradle
+.gradle/

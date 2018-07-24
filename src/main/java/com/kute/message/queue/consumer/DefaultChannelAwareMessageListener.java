@@ -20,10 +20,11 @@ public class DefaultChannelAwareMessageListener extends AbstractQueue implements
     @Override
     public void onMessage(Message message, Channel channel) throws Exception {
 
+        LOGGER.info("Receive message from fanoutQueue:{}", message);
         long tagId = message.getMessageProperties().getDeliveryTag();
         try {
-
         } catch(Exception e) {
+            e.printStackTrace();
             LOGGER.error("", e);
         } finally {
 
@@ -31,7 +32,7 @@ public class DefaultChannelAwareMessageListener extends AbstractQueue implements
              * deliveryTag:该消息的index
              * multiple：是否批量.true:将一次性ack所有小于deliveryTag的消息
              */
-            channel.basicAck(tagId, true);
+            channel.basicAck(tagId, false);
 
             /**
              * deliveryTag:该消息的index

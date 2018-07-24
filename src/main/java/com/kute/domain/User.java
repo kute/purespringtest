@@ -3,6 +3,8 @@ package com.kute.domain;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.sql.Timestamp;
 
@@ -68,5 +70,29 @@ public class User extends DomainBean {
                 .add("name", name)
                 .add("date", date)
                 .toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        return new EqualsBuilder()
+                .append(userId, user.userId)
+                .append(name, user.name)
+                .append(date, user.date)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(userId)
+                .append(name)
+                .append(date)
+                .toHashCode();
     }
 }

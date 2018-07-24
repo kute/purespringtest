@@ -44,7 +44,7 @@
     </rabbit:listener-container>
 
     <!-- listener -->
-    <bean id="defaultQueueListener" class="com.kute.message.queue.consumer.DefaultQueueListener" />
+    <bean id="defaultQueueListener" class="com.kute.message.queue.consumer.DirectQueueListener" />
     <bean id="defaultChannelAwareMessageListener" class="com.kute.message.queue.consumer.DefaultChannelAwareMessageListener" />
 
 </beans>

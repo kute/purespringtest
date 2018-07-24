@@ -33,6 +33,8 @@ public class ExceptionResolver implements HandlerExceptionResolver, Ordered {
     }
 
     private ModelAndView resolve(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap, Exception ex) {
+
+        logger.info("resolve exception");
         String callBack = request.getParameter("callback");
         if (Strings.isNullOrEmpty(callBack)) {
             callBack = request.getParameter("jsoncallback");

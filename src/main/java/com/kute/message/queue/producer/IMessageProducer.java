@@ -3,9 +3,15 @@ package com.kute.message.queue.producer;
 public interface IMessageProducer {
 
     /**
-     * sent default message
+     * sent direct message
      * @param message
      */
-    void sendDefaultMessage(String message);
+    void sendDirectMessage(String message);
+
+    /**
+     *
+     * @param message
+     */
+    void sendFanoutMessage(String message);
 
 }

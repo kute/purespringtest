@@ -12,16 +12,16 @@ import java.util.Map;
 /**
  * created on 2018-07-05 15:07
  */
-public class DefaultQueueListener extends AbstractQueue implements MessageListener {
+public class DirectQueueListener extends AbstractQueue implements MessageListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultQueueListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DirectQueueListener.class);
 
     @Override
     public void onMessage(Message message) {
 
         try {
             Map<String, Object> messageMap = parseMessage(message);
-            LOGGER.info("Receive message from defaultQueue:{}", messageMap);
+            LOGGER.info("Receive message from directQueue:{}", messageMap);
             if (MapUtils.isNotEmpty(messageMap)) {
                 // process message
             }

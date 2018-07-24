@@ -25,7 +25,7 @@ public class EventBaseListener {
      */
     @EventListener(condition = "#commonEvent.monitor")
     public void OnCommentEventWhenMonitorTrue(CommonEvent commonEvent) {
-        logger.info("Receive CommonEvent when commonEvent.monitor=true:{}", commonEvent);
+        logger.debug("Receive CommonEvent when commonEvent.monitor=true:{}", commonEvent);
     }
 
     /**
@@ -35,7 +35,7 @@ public class EventBaseListener {
     @EventListener
     @Async("defaultExecutor")
     public void OnCommentEvent(CommonEvent commonEvent) {
-        logger.info("Receive CommonEvent:{}", commonEvent);
+        logger.debug("Receive CommonEvent:{}", commonEvent);
     }
 
     /**
@@ -44,7 +44,7 @@ public class EventBaseListener {
      */
     @EventListener
     public void OnEvent(Object event) {
-        logger.info("Receive Event:{}", event);
+        logger.debug("Receive Event:{}", event);
     }
 
     /**
@@ -53,7 +53,7 @@ public class EventBaseListener {
      */
     @EventListener(classes = {DeadEvent.class})
     public void OnDeadEventWhen(DeadEvent deadEvent) {
-        logger.info("Receive DeadEvent:{}", deadEvent);
+        logger.debug("Receive DeadEvent:{}", deadEvent);
     }
 
     /*----------------------------------------------------------*/

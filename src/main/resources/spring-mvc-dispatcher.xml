@@ -2,6 +2,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -10,6 +12,8 @@
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
         http://www.springframework.org/schema/util
@@ -22,6 +26,34 @@
     PersistenceAnnotationBeanPostProcessor 以及 RequiredAnnotationBeanPostProcessor
     -->
     <!--<context:annotation-config/>-->
+
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <bean id="basicDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+        <property name="minIdle" value="${minIdle}"/>
+        <property name="maxIdle" value="${maxIdle}"/>
+        <property name="initialSize" value="${initialSize}"/>
+        <property name="logAbandoned" value="${logAbandoned}"/>
+        <property name="removeAbandonedOnBorrow" value="${removeAbandonedOnBorrow}"/>
+        <property name="maxWaitMillis" value="${maxWaitMillis}"/>
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
+        <property name="testWhileIdle" value="${testWhileIdle}"/>
+        <property name="testOnBorrow" value="${testOnBorrow}"/>
+        <property name="testOnReturn" value="${testOnReturn}"/>
+        <property name="poolPreparedStatements" value="${poolPreparedStatements}"/>
+        <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          p:dataSource-ref="basicDataSource"
+    />
+
+    <!--开启事务注解支持-->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -46,12 +78,12 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--<mvc:interceptors>-->
-    <!--<mvc:interceptor>-->
-    <!--<mvc:mapping path="/**"/>-->
-    <!--<bean class="com.netease.comment.web.interceptor.UserUrsAuthenticationInterceptor"/>-->
-    <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.kute.interceptor.RequestInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
         <property name="serializationInclusion">
@@ -60,20 +92,20 @@
     </bean>
 
     <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
-        <property name="autodetectAnnotations" value="true" />
+        <property name="autodetectAnnotations" value="true"/>
         <property name="streamDriver">
-            <bean class="com.thoughtworks.xstream.io.xml.DomDriver" />
+            <bean class="com.thoughtworks.xstream.io.xml.DomDriver"/>
         </property>
     </bean>
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <property name="useNotAcceptableStatusCode" value="true" />
-        <property name="order" value="1" />
+        <property name="useNotAcceptableStatusCode" value="true"/>
+        <property name="order" value="1"/>
         <property name="contentNegotiationManager">
             <bean class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
                 <property name="favorPathExtension" value="true"/>
                 <property name="ignoreAcceptHeader" value="false"/>
-                <property name="defaultContentType" value="application/json;charset=UTF-8" />
+                <property name="defaultContentType" value="application/json;charset=UTF-8"/>
                 <!--@see org.springframework.http.MediaType-->
                 <property name="mediaTypes">
                     <map>
@@ -122,7 +154,7 @@
         </property>
     </bean>
 
-    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
 
     <bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
@@ -144,7 +176,7 @@
         </property>
     </bean>
 
-    <bean id="exceptionResolver" class="com.kute.exception.ExceptionResolver" />
+    <bean id="exceptionResolver" class="com.kute.exception.ExceptionResolver"/>
 
     <bean id="handlerMapping"
           class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>

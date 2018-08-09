@@ -76,6 +76,15 @@
                 <constructor-arg value="UTF-8"/>
             </bean>
         </mvc:message-converters>
+        <!--自定义参数解析-->
+        <mvc:argument-resolvers>
+            <bean class="com.kute.interceptor.UserParameterResolver" />
+        </mvc:argument-resolvers>
+
+        <!--自定义结果返回-->
+        <mvc:return-value-handlers>
+            <bean class="com.kute.interceptor.JsonReturnResolver" />
+        </mvc:return-value-handlers>
     </mvc:annotation-driven>
 
     <mvc:interceptors>

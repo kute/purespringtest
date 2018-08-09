@@ -21,6 +21,11 @@ public class User extends DomainBean {
     public User() {
     }
 
+    public User(String name, Timestamp date) {
+        this.name = name;
+        this.date = date;
+    }
+
     public User(String name) {
         this.userId = RandomUtils.nextInt(1, 1000);
         this.name = name;

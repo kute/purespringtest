@@ -1,6 +1,5 @@
 package com.kute.message.eventbus.init;
 
-import com.google.common.eventbus.Subscribe;
 import com.kute.annotation.EventBusListener;
 import com.kute.message.eventbus.MessageEventBus;
 import org.slf4j.Logger;
@@ -9,9 +8,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 
 /**
  * created by kute on 2018/02/04 11:12

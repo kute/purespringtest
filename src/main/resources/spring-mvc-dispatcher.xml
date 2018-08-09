@@ -53,13 +53,6 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--<mvc:interceptors>-->
-    <!--<mvc:interceptor>-->
-    <!--<mvc:mapping path="/**"/>-->
-    <!--<bean class="com.netease.comment.web.interceptor.UserUrsAuthenticationInterceptor"/>-->
-    <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
-
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
         <property name="serializationInclusion">
             <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>

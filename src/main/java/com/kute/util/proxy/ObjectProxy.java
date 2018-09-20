@@ -51,7 +51,6 @@ public class ObjectProxy {
             BeanUtils.copyProperties(proxy, delegate);
         }
 
-//        BeanUtils.setProperty(proxy, "fieldName", "fieldValue");
         return proxy;
     }
 

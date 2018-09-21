@@ -32,6 +32,11 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- 用于解决java.beans.Introspector导致的内存泄漏的问题 -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
